@@ -1,0 +1,309 @@
+/*
+    Tutorial available at:
+    http://nccastaff.bournemouth.ac.uk/jmacey/RobTheBloke/www/research/maya/exp_plugin.htm
+*/
+
+global proc int MayaAWDExporterUI(string $parent,
+                                    string $action,
+                                    string $settings,
+                                    string $callback )
+{
+    if ($action == "post") {
+        setParent $parent;
+        frameLayout -l "General"
+            -mw 20 -mh 20
+            -bs "etchedIn";
+            radioButtonGrp
+                -l "Matrix storage"
+                -la2 "Optimize for size" "Optimize for accuracy" 
+                -nrb 2 -cw3 120 120 120
+                -sl 1 radWideMtx;
+
+            radioButtonGrp
+                -l "Geometry storage"
+                -la2 "Optimize for size" "Optimize for accuracy" 
+                -nrb 2 -cw3 120 120 120
+                -sl 1 radWideGeom;
+
+            optionMenu -l "Compression" optCompression;
+                menuItem -l "Uncompressed (None)";
+                menuItem -l "ZLIB/Deflate (Good)";
+                menuItem -l "LZMA (Best)"; 
+
+
+        setParent $parent;
+        frameLayout -l "Extension"
+            -mw 20 -mh 20
+            -bs "etchedIn";
+            checkBox -label "Include user attributes" -v 0 -align "left"
+                -onc "textField -e -en true tfUserNamespace"
+                -ofc "textField -e -en false tfUserNamespace"
+                chkIncludeAttributes;
+
+            text -label "User attribute namespace:" -align "left";
+            textField -en false -tx "http://example.com/myawdns" tfUserNamespace;
+        
+        
+        setParent $parent;
+        frameLayout -l "Scene & geometries"
+            -mw 20 -mh 20
+            -bs "etchedIn";
+            checkBox -label "Include mesh data" -v 1 -align "left" chkIncludeGeom;
+            checkBox -label "Include scenegraph" -v 1 -align "left" 
+                -onc "checkBox -e -en true chkFlatten"
+                -ofc "checkBox -e -en false chkFlatten"
+                chkIncludeScene;
+            checkBox -label "Flatten untransformed containers" -align "left" chkFlatten;
+            checkBox -label "Replace external references with empty placeholders" -align "left" chkReplaceExRefs;
+        
+        setParent $parent;
+        frameLayout -l "Materials"
+            -mw 20 -mh 20
+            -bs "etchedIn";
+            checkBox -label "Include materials" -v 1 -align "left" 
+                -onc "checkBox -e -en true chkEmbedTex"
+                -ofc "checkBox -e -en false chkEmbedTex"
+                chkIncludeMat;
+            checkBox -label "Embed textures" -align "left" chkEmbedTex;
+            text -align "left" -l"Transparency method:";
+            columnLayout -co "left" 20;
+                radioButtonGrp -nrb 3 -vr -cl3 "left" "left" "left" -sl 3
+                    -labelArray3 "Ignore alpha" "Use alpha blending (semi-transparency, slow)" "Binary alpha (using threshold, fast)" 
+                    -on3 "floatSliderGrp -e -en true inpAlphaThreshold"
+                    -of3 "floatSliderGrp -e -en false inpAlphaThreshold"
+                    radAlphaMethod;
+                columnLayout -co "left" 18;
+                    floatSliderGrp -cl3 "left" "left" "left" -cw3 60 25 70 -f true -l "Threshold:" -h 18 -min 0 -max 1 -v 0.5 -step 0.1 inpAlphaThreshold;
+
+        
+        setParent $parent;
+        frameLayout -l "Skeletons"
+            -mw 20 -mh 20
+            -bs "etchedIn";
+            checkBox -label "Include skeletons" -v 1 -align "left" chkIncludeSkel;
+        
+        setParent $parent;
+        frameLayout -l "Animation" 
+            -mw 20 -mh 20
+            -bs "etchedIn";
+            checkBox -label "Include skeletal animation" 
+                -v 1 -align "left" 
+                -ofc "intSliderGrp -e -en false inpJointsPerVert"
+                -onc "intSliderGrp -e -en true inpJointsPerVert"
+                chkIncludeSkelAnim;
+            flowLayout -h 30;
+                intSliderGrp -cl3 "left" "left" "left" -cw3 140 25 70 -f true -l "Max joints per vertex:" -h 20 -min 1 -max 5 -v 3 -step 1 inpJointsPerVert;
+            setParent "..";
+            checkBox -label "Include UV animation" -align "left" chkIncludeUVAnim;
+        
+            text -label "Sequence file path:" -align "left";
+            textField -tx "sequences.txt" tfSequences;
+
+        setParent $parent;
+        frameLayout -l "Preview"
+            -mw 20 -mh 20
+            -bs "etchedIn";
+            checkBox -label "Create Flash preview"
+                -onc "radioButtonGrp -e -en true radPreviewSandbox"
+                -ofc "radioButtonGrp -e -en false radPreviewSandbox"
+                -v 1 -align "left"
+                chkCreatePreview;
+
+            text -align "left" -l"Deployment type:";
+            columnLayout -co "left" 20;
+                radioButtonGrp -nrb 2 -vr -cl2 "left" "left" -sl 1
+                    -labelArray2 "Preview on local machine" "Deploy online" 
+                    radPreviewSandbox;
+
+
+
+        /*
+        setParent $parent;
+        frameLayout -l "Cameras and lights"
+            -mw 20 -mh 20
+            -bs "etchedIn";
+            checkBox -label "Include cameras" chkIncludeCameras;
+            checkBox -label "Include lights" chkIncludeLights;
+            */
+
+        // Use $settings to set initial state
+        // Split stored settings
+        string $options[];
+        int $len=`tokenize $settings "&" $options`;
+
+        for ($i=0; $i<$len; $i++) {
+            string $option[];
+            tokenize $options[$i] "=" $option;
+            string $key = $option[0];
+
+            switch ($key) {
+                case "wide_mtx":
+                    int $ival = $option[1];
+                    radioButtonGrp -e -sl $ival radWideMtx;
+                    break;
+
+                case "wide_geom":
+                    int $ival = $option[1];
+                    radioButtonGrp -e -sl $ival radWideGeom;
+                    break;
+
+                case "compression":
+                    int $ival;
+                    switch ($option[1]) {
+                        case "none": $ival = 1; break;
+                        case "deflate": $ival = 2; break;
+                        case "lzma": $ival = 3; break;
+                    }
+
+                    optionMenu -e -sl $ival optCompression;
+                    break;
+
+                case "inc_attr":
+                    int $ival = $option[1];
+                    checkBox -e -v $ival chkIncludeAttributes;
+                    // Enable namespace text field if checked
+                    textField -e -en ($ival==1) tfUserNamespace;
+                    break;
+
+                case "attrns":
+                    string $sval = $option[1];
+                    textField -e -tx $sval tfUserNamespace;
+                    break;
+
+                case "inc_geom":
+                    int $ival = $option[1];
+                    checkBox -e -v $ival chkIncludeGeom;
+                    break;
+
+                case "inc_scene":
+                    int $ival = $option[1];
+                    checkBox -e -v $ival chkIncludeScene;
+                    break;
+
+                case "flatten_untransformed":
+                    int $ival = $option[1];
+                    checkBox -e -v $ival chkFlatten;
+                    break;
+
+                case "replace_exrefs":
+                    int $ival = $option[1];
+                    checkBox -e -v $ival chkReplaceExRefs;
+                    break;
+
+                case "inc_materials":
+                    int $ival = $option[1];
+                    checkBox -e -v $ival chkIncludeMat;
+                    break;
+
+                case "embed_textures":
+                    int $ival = $option[1];
+                    checkBox -e -v $ival chkEmbedTex;
+                    break;
+
+                case "alpha_blending":
+                    radioButtonGrp -e -sl 2 radAlphaMethod;
+                    floatSliderGrp -e -en false inpAlphaThreshold;
+                    break;
+
+                case "alpha_threshold":
+                    float $fval = $option[1];
+                    radioButtonGrp -e -sl 3 radAlphaMethod;
+                    floatSliderGrp -e -v $fval inpAlphaThreshold;
+                    floatSliderGrp -e -en true inpAlphaThreshold;
+                    break;
+
+                case "inc_skeletons":
+                    int $ival = $option[1];
+                    checkBox -e -v $ival chkIncludeSkel;
+                    break;
+
+                case "inc_uvanim":
+                    int $ival = $option[1];
+                    checkBox -e -v $ival chkIncludeUVAnim;
+                    break;
+
+                case "inc_skelanim":
+                    int $ival = $option[1];
+                    checkBox -e -v $ival chkIncludeSkelAnim;
+                    intSliderGrp -e -en ($ival==1) inpJointsPerVert;
+                    break;
+
+                case "jointspervert":
+                    int $ival = $option[1];
+                    intSliderGrp -e -v $ival inpJointsPerVert;
+                    break;
+
+                case "seqsrc":
+                    string $sval = $option[1];
+                    textField -e -tx $sval tfSequences;
+                    break;
+
+                case "create_preview":
+                    int $ival = $option[1];
+                    checkBox -e -v $ival chkCreatePreview;
+                    radioButtonGrp -e -en $ival radPreviewSandbox;
+                    break;
+
+                case "preview_sandbox":
+                    int $ival = $option[1];
+                    radioButtonGrp -e -sl $ival radPreviewSandbox;
+                    break;
+            }
+        }
+    }
+    else if ($action == "query") { 
+        int $oi=0;
+        string $options[] = {};
+
+        $options[$oi++] = "wide_mtx="+`radioButtonGrp -q -sl radWideMtx`;
+        $options[$oi++] = "wide_geom="+`radioButtonGrp -q -sl radWideGeom`;
+
+        if (`optionMenu -q -sl optCompression` == 1)
+            $options[$oi++] = "compression=none";
+        else if (`optionMenu -q -sl optCompression` == 2)
+            $options[$oi++] = "compression=deflate";
+        else if (`optionMenu -q -sl optCompression` == 3)
+            $options[$oi++] = "compression=lzma";
+
+
+        $options[$oi++] = "inc_attr="+`checkBox -q -v chkIncludeAttributes`;
+        $options[$oi++] = "attrns="+`textField -q -tx tfUserNamespace`;
+        $options[$oi++] = "inc_geom="+`checkBox -q -v chkIncludeGeom`;
+        $options[$oi++] = "inc_scene="+`checkBox -q -v chkIncludeScene`;
+        $options[$oi++] = "flatten_untransformed="+`checkBox -q -v chkFlatten`;
+        $options[$oi++] = "replace_exrefs="+`checkBox -q -v chkReplaceExRefs`;
+        $options[$oi++] = "inc_materials="+`checkBox -q -v chkIncludeMat`;
+        $options[$oi++] = "embed_textures="+`checkBox -q -v chkEmbedTex`;
+
+        if (`radioButtonGrp -q -sl radAlphaMethod` == 2) {
+            $options[$oi++] = "alpha_blending=1";
+        }
+        else if (`radioButtonGrp -q -sl radAlphaMethod` == 3) {
+            $options[$oi++] = "alpha_threshold="+`floatSliderGrp -q -v inpAlphaThreshold`;
+        }
+
+        $options[$oi++] = "inc_skeletons="+`checkBox -q -v chkIncludeSkel`;
+        $options[$oi++] = "inc_uvanim="+`checkBox -q -v chkIncludeUVAnim`;
+        $options[$oi++] = "inc_skelanim="+`checkBox -q -v chkIncludeSkelAnim`;
+        $options[$oi++] = "jointspervert="+`intSliderGrp -q -v inpJointsPerVert`;
+        $options[$oi++] = "seqsrc="+`textField -q -tx tfSequences`;
+
+        $options[$oi++] = "create_preview="+`checkBox -q -v chkCreatePreview`;
+        $options[$oi++] = "preview_sandbox="+`radioButtonGrp -q -sl radPreviewSandbox`;
+
+
+        // Join option string (equivalent of '&'.join(options) in Python)
+        $option_str = "";
+        for ($i=0;$i<size($options);$i++) {
+            if ($i==0)
+                $option_str += $options[$i];
+            else
+                $option_str += "&"+$options[$i];
+        }
+
+        // Callback
+        eval( $callback + " \"" + $option_str + "\"");
+    }
+
+    return 1;
+}
