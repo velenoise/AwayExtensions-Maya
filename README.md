@@ -11,7 +11,7 @@ The Maya exporter plug-in is currently not under development anymore.
 * AWDExporter (python)
 
 The AWDExporter is a Maya-exporter-plugin developed with pure python.
-It is currently under development, and may not work under all configurations. 
+It is currently under development, and will be available soon.
 
 
 
