@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		100000000000000000000002 /* AWDExporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000001 /* AWDExporter.cpp */; };
-		C03B535218A2A6E400A3A033 /* libawd.dylib in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = C03B535118A2A6E400A3A033 /* libawd.dylib */; };
 		C03B535418A2A6F800A3A033 /* libawd.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C03B535318A2A6F800A3A033 /* libawd.dylib */; };
+		C0FC423A18A3B4C0000B2621 /* libawd.dylib in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = C03B535318A2A6F800A3A033 /* libawd.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -19,7 +19,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				C03B535218A2A6E400A3A033 /* libawd.dylib in Copy Files (1 item) */,
+				C0FC423A18A3B4C0000B2621 /* libawd.dylib in Copy Files (1 item) */,
 			);
 			name = "Copy Files (1 item)";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -31,7 +31,7 @@
 		100000000000000000000003 /* lepTranslatorOpts.mel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.mel; path = lepTranslatorOpts.mel; sourceTree = "<group>"; };
 		100000000000000000000004 /* lepTranslator.rgb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; path = lepTranslator.rgb; sourceTree = "<group>"; };
 		100000000000000000000005 /* lepTranslator.lep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lepTranslator.lep; sourceTree = "<group>"; };
-		C03B535118A2A6E400A3A033 /* libawd.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libawd.dylib; path = ../../../../../../usr/local/lib/libawd.dylib; sourceTree = "<group>"; };
+		C03B535118A2A6E400A3A033 /* libawd.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libawd.dylib; path = /Users/cricketdesign/Documents/Jobs/Tests/AWDExporter/AWDExporter/../../../../../../usr/local/lib/libawd.dylib; sourceTree = "<absolute>"; };
 		C03B535318A2A6F800A3A033 /* libawd.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libawd.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.6.sdk/usr/local/lib/libawd.dylib; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		D2AAC0630554660B00DB518D /* AWDExporter.bundle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = AWDExporter.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -130,8 +130,6 @@
 /* Begin PBXProject section */
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			attributes = {
-			};
 			buildConfigurationList = 8A7F05F1086863A70064D097 /* Build configuration list for PBXProject "AWDExporter" */;
 			compatibilityVersion = "Xcode 2.4";
 			developmentRegion = English;
@@ -190,7 +188,7 @@
 				);
 				LIBRARY_STYLE = BUNDLE;
 				MACH_O_TYPE = mh_bundle;
-				MAYA_DIRECTORY = /Applications/Autodesk/maya2012;
+				MAYA_DIRECTORY = /Applications/Autodesk/maya2014;
 				PREBINDING = NO;
 				PRODUCT_NAME = AWDExporter;
 				SDKROOT = "";
@@ -227,7 +225,7 @@
 				);
 				LIBRARY_STYLE = BUNDLE;
 				MACH_O_TYPE = mh_bundle;
-				MAYA_DIRECTORY = /Applications/Autodesk/maya2012;
+				MAYA_DIRECTORY = /Applications/Autodesk/maya2014;
 				PREBINDING = NO;
 				PRODUCT_NAME = AWDExporter;
 				SDKROOT = "";
@@ -239,7 +237,8 @@
 		8A7F05F2086863A70064D097 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_64_BIT_PRE_XCODE_3_1 = x86_64;
 				AWD_SDK = "/Users/caiovelenosi/Projects/AWD/awd-sdk-master/cpp-libawd";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(MAYA_DIRECTORY)/devkit/include/maya/OpenMayaMac.h";
@@ -268,7 +267,8 @@
 		8A7F05F3086863A70064D097 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_64_BIT_PRE_XCODE_3_1 = x86_64;
 				AWD_SDK = "/Users/caiovelenosi/Projects/AWD/awd-sdk-master/cpp-libawd";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(MAYA_DIRECTORY)/devkit/include/maya/OpenMayaMac.h";

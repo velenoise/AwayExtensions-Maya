@@ -74,10 +74,10 @@ public:
 private:
     static MString const magic;
     
-    int getMeshes();
+    bool getMeshes();
     vector<unsigned char> long2char(unsigned long val);
     
-    AWDTriGeom * ExportTriObject(MObject *mesh);
+    AWDTriGeom * exportTriGeom(MObject *mesh);
     
     AWD* awd;
 
@@ -100,7 +100,9 @@ MStatus AWDExporter::writer ( const MFileObject& file,
                                 const MString& options,
                                 MPxFileTranslator::FileAccessMode mode)
 {
-    MGlobal::displayInfo("writer");
+    AWDGeomUtil util;
+    
+    /*MGlobal::displayInfo("writer");
     MStatus status;
 	const MString fname = file.fullName();
     
@@ -122,42 +124,50 @@ MStatus AWDExporter::writer ( const MFileObject& file,
     getMeshes();
     
     MGlobal::displayInfo("let's flush!");
-    awd->flush(fd);
+    //awd->flush(fd);*/
     
     return MS::kSuccess;
 }
 
-int AWDExporter::getMeshes()
+bool AWDExporter::getMeshes()
 {
     MItDag it(MItDag::kDepthFirst, MFn::kMesh);
     
     while (!it.isDone())
     {
+        MGlobal::displayInfo("mesh found");
+        
         MObject obj = it.item();
+
         MFnMesh fn(it.item());
+        
+        MGlobal::displayInfo(fn.name());
         
         if (!fn.isIntermediateObject())
         {
-            std::cout << "Mesh " << fn.name().asChar() << endl;
+            MGlobal::displayInfo("not intermediate");
+            
             AWDTriGeom *mesh;
             
-            mesh = ExportTriObject(&obj);
+            mesh = exportTriGeom(&obj);
             
-            if (mesh == NULL) return NULL;
+            /*if (mesh == NULL) return false;
             
             AWDMeshInst *inst = new AWDMeshInst(fn.name().asChar(), strlen(fn.name().asChar()), mesh);
             
-            awd->add_scene_block(inst);
+            awd->add_scene_block(inst);*/
         }
         
         it.next();
     }
     
-    return TRUE;
+    return true;
 }
 
-AWDTriGeom* AWDExporter::ExportTriObject(MObject *mesh)
+AWDTriGeom* AWDExporter::exportTriGeom(MObject *mesh)
 {
+    MGlobal::displayInfo("exportTriGeom");
+    
     AWDTriGeom *awdGeom;
     
     MFnMesh fn(*mesh);
@@ -172,15 +182,24 @@ AWDTriGeom* AWDExporter::ExportTriObject(MObject *mesh)
     MFloatArray uvs_v;
     
     fn.getPoints(vts);
+    MGlobal::displayInfo(MString(to_string(vts.length()).c_str()));
+    
     fn.getTriangles(triangleCounts, triangleVertices);
+    MGlobal::displayInfo(MString(to_string(triangleCounts.length()).c_str()));
+    MGlobal::displayInfo(MString(to_string(triangleVertices.length()).c_str()));
+    
     fn.getNormals(nrmls);
+    MGlobal::displayInfo(MString(to_string(nrmls.length()).c_str()));
+    
     fn.getUVs(uvs_u, uvs_v);
+    MGlobal::displayInfo(MString(to_string(uvs_u.length()).c_str()));
+    MGlobal::displayInfo(MString(to_string(uvs_v.length()).c_str()));
     
     AWDGeomUtil util;
-    util.include_normals = true;
-    util.include_uv = true;
+    /*util.include_normals = true;
+    util.include_uv = true;*/
     
-    for (int i = 0; i < triangleCounts.length(); i++)
+    /*for (int i = 0; i < triangleCounts.length(); i++)
     {
         for (int j = 0; j < 3; j++)
         {
@@ -200,6 +219,7 @@ AWDTriGeom* AWDExporter::ExportTriObject(MObject *mesh)
             vd->v = uvs_v[i * 3 + j];
             
             util.append_vdata_struct(vd);
+            free(vd);
         }
         
     }
@@ -210,8 +230,9 @@ AWDTriGeom* AWDExporter::ExportTriObject(MObject *mesh)
     
     awdGeom = new AWDTriGeom(name, strlen(name));
     util.build_geom(awdGeom);
+    free(name);
     
-    awd->add_mesh_data(awdGeom);
+    awd->add_mesh_data(awdGeom);*/
     
     return awdGeom;
 }
