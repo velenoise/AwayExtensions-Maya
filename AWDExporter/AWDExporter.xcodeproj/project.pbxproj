@@ -8,8 +8,34 @@
 
 /* Begin PBXBuildFile section */
 		100000000000000000000002 /* AWDExporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 100000000000000000000001 /* AWDExporter.cpp */; };
-		C03B535418A2A6F800A3A033 /* libawd.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C03B535318A2A6F800A3A033 /* libawd.dylib */; };
-		C0FC423A18A3B4C0000B2621 /* libawd.dylib in Copy Files (1 item) */ = {isa = PBXBuildFile; fileRef = C03B535318A2A6F800A3A033 /* libawd.dylib */; };
+		C075F92518A93532005E3F1C /* attr.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F90F18A93532005E3F1C /* attr.cc */; };
+		C075F92618A93532005E3F1C /* awd.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F91018A93532005E3F1C /* awd.cc */; };
+		C075F92718A93532005E3F1C /* awdlzma.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F91118A93532005E3F1C /* awdlzma.cc */; };
+		C075F92818A93532005E3F1C /* awdzlib.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F91218A93532005E3F1C /* awdzlib.cc */; };
+		C075F92918A93532005E3F1C /* block.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F91318A93532005E3F1C /* block.cc */; };
+		C075F92A18A93532005E3F1C /* camera.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F91418A93532005E3F1C /* camera.cc */; };
+		C075F92B18A93532005E3F1C /* geomutil.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F91518A93532005E3F1C /* geomutil.cc */; };
+		C075F92C18A93532005E3F1C /* light.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F91618A93532005E3F1C /* light.cc */; };
+		C075F92D18A93532005E3F1C /* material.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F91718A93532005E3F1C /* material.cc */; };
+		C075F92E18A93532005E3F1C /* mesh.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F91818A93532005E3F1C /* mesh.cc */; };
+		C075F92F18A93532005E3F1C /* meta.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F91918A93532005E3F1C /* meta.cc */; };
+		C075F93018A93532005E3F1C /* name.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F91A18A93532005E3F1C /* name.cc */; };
+		C075F93118A93532005E3F1C /* ns.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F91B18A93532005E3F1C /* ns.cc */; };
+		C075F93218A93532005E3F1C /* primitive.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F91C18A93532005E3F1C /* primitive.cc */; };
+		C075F93318A93532005E3F1C /* scene.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F91D18A93532005E3F1C /* scene.cc */; };
+		C075F93418A93532005E3F1C /* shading.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F91E18A93532005E3F1C /* shading.cc */; };
+		C075F93518A93532005E3F1C /* skelanim.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F91F18A93532005E3F1C /* skelanim.cc */; };
+		C075F93618A93532005E3F1C /* skeleton.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F92018A93532005E3F1C /* skeleton.cc */; };
+		C075F93718A93532005E3F1C /* stream.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F92118A93532005E3F1C /* stream.cc */; };
+		C075F93818A93532005E3F1C /* texture.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F92218A93532005E3F1C /* texture.cc */; };
+		C075F93918A93532005E3F1C /* util.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F92318A93532005E3F1C /* util.cc */; };
+		C075F93A18A93532005E3F1C /* uvanim.cc in Sources */ = {isa = PBXBuildFile; fileRef = C075F92418A93532005E3F1C /* uvanim.cc */; };
+		C075F93D18A93558005E3F1C /* zlib.h in Headers */ = {isa = PBXBuildFile; fileRef = C075F93C18A93558005E3F1C /* zlib.h */; };
+		C075F94118A9356A005E3F1C /* LzmaEnc.h in Headers */ = {isa = PBXBuildFile; fileRef = C075F93E18A9356A005E3F1C /* LzmaEnc.h */; };
+		C075F94218A9356A005E3F1C /* LzmaLib.h in Headers */ = {isa = PBXBuildFile; fileRef = C075F93F18A9356A005E3F1C /* LzmaLib.h */; };
+		C075F94318A9356A005E3F1C /* Types.h in Headers */ = {isa = PBXBuildFile; fileRef = C075F94018A9356A005E3F1C /* Types.h */; };
+		C075F94618A93650005E3F1C /* libCompressionLibs.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C075F94418A93650005E3F1C /* libCompressionLibs.dylib */; };
+		C075F94718A93650005E3F1C /* libLZMA.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C075F94518A93650005E3F1C /* libLZMA.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -19,7 +45,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				C0FC423A18A3B4C0000B2621 /* libawd.dylib in Copy Files (1 item) */,
 			);
 			name = "Copy Files (1 item)";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -31,8 +56,34 @@
 		100000000000000000000003 /* lepTranslatorOpts.mel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.mel; path = lepTranslatorOpts.mel; sourceTree = "<group>"; };
 		100000000000000000000004 /* lepTranslator.rgb */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file; path = lepTranslator.rgb; sourceTree = "<group>"; };
 		100000000000000000000005 /* lepTranslator.lep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = lepTranslator.lep; sourceTree = "<group>"; };
-		C03B535118A2A6E400A3A033 /* libawd.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libawd.dylib; path = /Users/cricketdesign/Documents/Jobs/Tests/AWDExporter/AWDExporter/../../../../../../usr/local/lib/libawd.dylib; sourceTree = "<absolute>"; };
-		C03B535318A2A6F800A3A033 /* libawd.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libawd.dylib; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.6.sdk/usr/local/lib/libawd.dylib; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		C075F90F18A93532005E3F1C /* attr.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = attr.cc; path = "../../awd-sdk/cpp-libawd/src/attr.cc"; sourceTree = "<group>"; };
+		C075F91018A93532005E3F1C /* awd.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = awd.cc; path = "../../awd-sdk/cpp-libawd/src/awd.cc"; sourceTree = "<group>"; };
+		C075F91118A93532005E3F1C /* awdlzma.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = awdlzma.cc; path = "../../awd-sdk/cpp-libawd/src/awdlzma.cc"; sourceTree = "<group>"; };
+		C075F91218A93532005E3F1C /* awdzlib.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = awdzlib.cc; path = "../../awd-sdk/cpp-libawd/src/awdzlib.cc"; sourceTree = "<group>"; };
+		C075F91318A93532005E3F1C /* block.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = block.cc; path = "../../awd-sdk/cpp-libawd/src/block.cc"; sourceTree = "<group>"; };
+		C075F91418A93532005E3F1C /* camera.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = camera.cc; path = "../../awd-sdk/cpp-libawd/src/camera.cc"; sourceTree = "<group>"; };
+		C075F91518A93532005E3F1C /* geomutil.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = geomutil.cc; path = "../../awd-sdk/cpp-libawd/src/geomutil.cc"; sourceTree = "<group>"; };
+		C075F91618A93532005E3F1C /* light.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = light.cc; path = "../../awd-sdk/cpp-libawd/src/light.cc"; sourceTree = "<group>"; };
+		C075F91718A93532005E3F1C /* material.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = material.cc; path = "../../awd-sdk/cpp-libawd/src/material.cc"; sourceTree = "<group>"; };
+		C075F91818A93532005E3F1C /* mesh.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mesh.cc; path = "../../awd-sdk/cpp-libawd/src/mesh.cc"; sourceTree = "<group>"; };
+		C075F91918A93532005E3F1C /* meta.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = meta.cc; path = "../../awd-sdk/cpp-libawd/src/meta.cc"; sourceTree = "<group>"; };
+		C075F91A18A93532005E3F1C /* name.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = name.cc; path = "../../awd-sdk/cpp-libawd/src/name.cc"; sourceTree = "<group>"; };
+		C075F91B18A93532005E3F1C /* ns.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ns.cc; path = "../../awd-sdk/cpp-libawd/src/ns.cc"; sourceTree = "<group>"; };
+		C075F91C18A93532005E3F1C /* primitive.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = primitive.cc; path = "../../awd-sdk/cpp-libawd/src/primitive.cc"; sourceTree = "<group>"; };
+		C075F91D18A93532005E3F1C /* scene.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scene.cc; path = "../../awd-sdk/cpp-libawd/src/scene.cc"; sourceTree = "<group>"; };
+		C075F91E18A93532005E3F1C /* shading.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = shading.cc; path = "../../awd-sdk/cpp-libawd/src/shading.cc"; sourceTree = "<group>"; };
+		C075F91F18A93532005E3F1C /* skelanim.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = skelanim.cc; path = "../../awd-sdk/cpp-libawd/src/skelanim.cc"; sourceTree = "<group>"; };
+		C075F92018A93532005E3F1C /* skeleton.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = skeleton.cc; path = "../../awd-sdk/cpp-libawd/src/skeleton.cc"; sourceTree = "<group>"; };
+		C075F92118A93532005E3F1C /* stream.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stream.cc; path = "../../awd-sdk/cpp-libawd/src/stream.cc"; sourceTree = "<group>"; };
+		C075F92218A93532005E3F1C /* texture.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = texture.cc; path = "../../awd-sdk/cpp-libawd/src/texture.cc"; sourceTree = "<group>"; };
+		C075F92318A93532005E3F1C /* util.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = util.cc; path = "../../awd-sdk/cpp-libawd/src/util.cc"; sourceTree = "<group>"; };
+		C075F92418A93532005E3F1C /* uvanim.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = uvanim.cc; path = "../../awd-sdk/cpp-libawd/src/uvanim.cc"; sourceTree = "<group>"; };
+		C075F93C18A93558005E3F1C /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zlib.h; path = "../../awd-sdk/cpp-libawd/lib/zlib/zlib.h"; sourceTree = "<group>"; };
+		C075F93E18A9356A005E3F1C /* LzmaEnc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LzmaEnc.h; path = "../../awd-sdk/cpp-libawd/lib/lzma/LzmaEnc.h"; sourceTree = "<group>"; };
+		C075F93F18A9356A005E3F1C /* LzmaLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LzmaLib.h; path = "../../awd-sdk/cpp-libawd/lib/lzma/LzmaLib.h"; sourceTree = "<group>"; };
+		C075F94018A9356A005E3F1C /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Types.h; path = "../../awd-sdk/cpp-libawd/lib/lzma/Types.h"; sourceTree = "<group>"; };
+		C075F94418A93650005E3F1C /* libCompressionLibs.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libCompressionLibs.dylib; path = ../../../../../../../usr/local/lib/libCompressionLibs.dylib; sourceTree = "<group>"; };
+		C075F94518A93650005E3F1C /* libLZMA.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libLZMA.dylib; path = ../../../../../../../usr/local/lib/libLZMA.dylib; sourceTree = "<group>"; };
 		D2AAC0630554660B00DB518D /* AWDExporter.bundle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = AWDExporter.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -41,7 +92,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C03B535418A2A6F800A3A033 /* libawd.dylib in Frameworks */,
+				C075F94618A93650005E3F1C /* libCompressionLibs.dylib in Frameworks */,
+				C075F94718A93650005E3F1C /* libLZMA.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,8 +103,8 @@
 		08FB7794FE84155DC02AAC07 /* lepTranslatorPlugin */ = {
 			isa = PBXGroup;
 			children = (
-				C03B535318A2A6F800A3A033 /* libawd.dylib */,
-				C03B535118A2A6E400A3A033 /* libawd.dylib */,
+				C075F94418A93650005E3F1C /* libCompressionLibs.dylib */,
+				C075F94518A93650005E3F1C /* libLZMA.dylib */,
 				08FB7795FE84155DC02AAC07 /* Source */,
 				8A7F063208688F460064D097 /* Mel */,
 				8A7F063308688F580064D097 /* Resources */,
@@ -64,6 +116,11 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				C075F93E18A9356A005E3F1C /* LzmaEnc.h */,
+				C075F93F18A9356A005E3F1C /* LzmaLib.h */,
+				C075F94018A9356A005E3F1C /* Types.h */,
+				C075F93C18A93558005E3F1C /* zlib.h */,
+				C075F93B18A93538005E3F1C /* libawd */,
 				100000000000000000000001 /* AWDExporter.cpp */,
 			);
 			name = Source;
@@ -94,6 +151,35 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		C075F93B18A93538005E3F1C /* libawd */ = {
+			isa = PBXGroup;
+			children = (
+				C075F90F18A93532005E3F1C /* attr.cc */,
+				C075F91018A93532005E3F1C /* awd.cc */,
+				C075F91118A93532005E3F1C /* awdlzma.cc */,
+				C075F91218A93532005E3F1C /* awdzlib.cc */,
+				C075F91318A93532005E3F1C /* block.cc */,
+				C075F91418A93532005E3F1C /* camera.cc */,
+				C075F91518A93532005E3F1C /* geomutil.cc */,
+				C075F91618A93532005E3F1C /* light.cc */,
+				C075F91718A93532005E3F1C /* material.cc */,
+				C075F91818A93532005E3F1C /* mesh.cc */,
+				C075F91918A93532005E3F1C /* meta.cc */,
+				C075F91A18A93532005E3F1C /* name.cc */,
+				C075F91B18A93532005E3F1C /* ns.cc */,
+				C075F91C18A93532005E3F1C /* primitive.cc */,
+				C075F91D18A93532005E3F1C /* scene.cc */,
+				C075F91E18A93532005E3F1C /* shading.cc */,
+				C075F91F18A93532005E3F1C /* skelanim.cc */,
+				C075F92018A93532005E3F1C /* skeleton.cc */,
+				C075F92118A93532005E3F1C /* stream.cc */,
+				C075F92218A93532005E3F1C /* texture.cc */,
+				C075F92318A93532005E3F1C /* util.cc */,
+				C075F92418A93532005E3F1C /* uvanim.cc */,
+			);
+			name = libawd;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -101,6 +187,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C075F93D18A93558005E3F1C /* zlib.h in Headers */,
+				C075F94118A9356A005E3F1C /* LzmaEnc.h in Headers */,
+				C075F94218A9356A005E3F1C /* LzmaLib.h in Headers */,
+				C075F94318A9356A005E3F1C /* Types.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +242,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				100000000000000000000002 /* AWDExporter.cpp in Sources */,
+				C075F92518A93532005E3F1C /* attr.cc in Sources */,
+				C075F92618A93532005E3F1C /* awd.cc in Sources */,
+				C075F92718A93532005E3F1C /* awdlzma.cc in Sources */,
+				C075F92818A93532005E3F1C /* awdzlib.cc in Sources */,
+				C075F92918A93532005E3F1C /* block.cc in Sources */,
+				C075F92A18A93532005E3F1C /* camera.cc in Sources */,
+				C075F92B18A93532005E3F1C /* geomutil.cc in Sources */,
+				C075F92C18A93532005E3F1C /* light.cc in Sources */,
+				C075F92D18A93532005E3F1C /* material.cc in Sources */,
+				C075F92E18A93532005E3F1C /* mesh.cc in Sources */,
+				C075F92F18A93532005E3F1C /* meta.cc in Sources */,
+				C075F93018A93532005E3F1C /* name.cc in Sources */,
+				C075F93118A93532005E3F1C /* ns.cc in Sources */,
+				C075F93218A93532005E3F1C /* primitive.cc in Sources */,
+				C075F93318A93532005E3F1C /* scene.cc in Sources */,
+				C075F93418A93532005E3F1C /* shading.cc in Sources */,
+				C075F93518A93532005E3F1C /* skelanim.cc in Sources */,
+				C075F93618A93532005E3F1C /* skeleton.cc in Sources */,
+				C075F93718A93532005E3F1C /* stream.cc in Sources */,
+				C075F93818A93532005E3F1C /* texture.cc in Sources */,
+				C075F93918A93532005E3F1C /* util.cc in Sources */,
+				C075F93A18A93532005E3F1C /* uvanim.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

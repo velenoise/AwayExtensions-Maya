@@ -100,9 +100,7 @@ MStatus AWDExporter::writer ( const MFileObject& file,
                                 const MString& options,
                                 MPxFileTranslator::FileAccessMode mode)
 {
-    AWDGeomUtil util;
-    
-    /*MGlobal::displayInfo("writer");
+    MGlobal::displayInfo("writer");
     MStatus status;
 	const MString fname = file.fullName();
     
@@ -124,7 +122,7 @@ MStatus AWDExporter::writer ( const MFileObject& file,
     getMeshes();
     
     MGlobal::displayInfo("let's flush!");
-    //awd->flush(fd);*/
+    awd->flush(fd);
     
     return MS::kSuccess;
 }
@@ -151,11 +149,11 @@ bool AWDExporter::getMeshes()
             
             mesh = exportTriGeom(&obj);
             
-            /*if (mesh == NULL) return false;
+            if (mesh == NULL) return false;
             
             AWDMeshInst *inst = new AWDMeshInst(fn.name().asChar(), strlen(fn.name().asChar()), mesh);
             
-            awd->add_scene_block(inst);*/
+            awd->add_scene_block(inst);
         }
         
         it.next();
@@ -196,10 +194,10 @@ AWDTriGeom* AWDExporter::exportTriGeom(MObject *mesh)
     MGlobal::displayInfo(MString(to_string(uvs_v.length()).c_str()));
     
     AWDGeomUtil util;
-    /*util.include_normals = true;
-    util.include_uv = true;*/
+    util.include_normals = true;
+    util.include_uv = true;
     
-    /*for (int i = 0; i < triangleCounts.length(); i++)
+    for (int i = 0; i < triangleCounts.length(); i++)
     {
         for (int j = 0; j < 3; j++)
         {
@@ -207,6 +205,8 @@ AWDTriGeom* AWDExporter::exportTriGeom(MObject *mesh)
             MFloatVector nrml = nrmls[i * 3 + j];
             
             vdata *vd = (vdata *)malloc(sizeof(vdata));
+            vd->num_bindings = 0;
+            
             vd->x = vtx.x;
             vd->y = vtx.y;
             vd->z = vtx.z;
@@ -232,7 +232,7 @@ AWDTriGeom* AWDExporter::exportTriGeom(MObject *mesh)
     util.build_geom(awdGeom);
     free(name);
     
-    awd->add_mesh_data(awdGeom);*/
+    awd->add_mesh_data(awdGeom);
     
     return awdGeom;
 }
