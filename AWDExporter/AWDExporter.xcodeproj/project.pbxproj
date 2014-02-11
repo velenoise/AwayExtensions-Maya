@@ -220,6 +220,8 @@
 /* Begin PBXProject section */
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = 8A7F05F1086863A70064D097 /* Build configuration list for PBXProject "AWDExporter" */;
 			compatibilityVersion = "Xcode 2.4";
 			developmentRegion = English;
@@ -300,7 +302,7 @@
 				);
 				LIBRARY_STYLE = BUNDLE;
 				MACH_O_TYPE = mh_bundle;
-				MAYA_DIRECTORY = /Applications/Autodesk/maya2014;
+				MAYA_DIRECTORY = /Applications/Autodesk/maya2012;
 				PREBINDING = NO;
 				PRODUCT_NAME = AWDExporter;
 				SDKROOT = "";
@@ -337,7 +339,7 @@
 				);
 				LIBRARY_STYLE = BUNDLE;
 				MACH_O_TYPE = mh_bundle;
-				MAYA_DIRECTORY = /Applications/Autodesk/maya2014;
+				MAYA_DIRECTORY = /Applications/Autodesk/maya2012;
 				PREBINDING = NO;
 				PRODUCT_NAME = AWDExporter;
 				SDKROOT = "";
@@ -349,8 +351,7 @@
 		8A7F05F2086863A70064D097 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_64_BIT_PRE_XCODE_3_1 = x86_64;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				AWD_SDK = "/Users/caiovelenosi/Projects/AWD/awd-sdk-master/cpp-libawd";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(MAYA_DIRECTORY)/devkit/include/maya/OpenMayaMac.h";
@@ -379,8 +380,7 @@
 		8A7F05F3086863A70064D097 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_64_BIT_PRE_XCODE_3_1)";
-				ARCHS_STANDARD_64_BIT_PRE_XCODE_3_1 = x86_64;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				AWD_SDK = "/Users/caiovelenosi/Projects/AWD/awd-sdk-master/cpp-libawd";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(MAYA_DIRECTORY)/devkit/include/maya/OpenMayaMac.h";

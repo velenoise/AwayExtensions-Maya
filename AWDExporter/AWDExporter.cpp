@@ -180,46 +180,49 @@ AWDTriGeom* AWDExporter::exportTriGeom(MObject *mesh)
     MFloatArray uvs_v;
     
     fn.getPoints(vts);
-    MGlobal::displayInfo(MString(to_string(vts.length()).c_str()));
     
     fn.getTriangles(triangleCounts, triangleVertices);
-    MGlobal::displayInfo(MString(to_string(triangleCounts.length()).c_str()));
-    MGlobal::displayInfo(MString(to_string(triangleVertices.length()).c_str()));
     
-    fn.getNormals(nrmls);
-    MGlobal::displayInfo(MString(to_string(nrmls.length()).c_str()));
+    //fn.getNormals(nrmls);
     
     fn.getUVs(uvs_u, uvs_v);
-    MGlobal::displayInfo(MString(to_string(uvs_u.length()).c_str()));
-    MGlobal::displayInfo(MString(to_string(uvs_v.length()).c_str()));
     
     AWDGeomUtil util;
     util.include_normals = true;
     util.include_uv = true;
     
+    int countVert = 0;
+    
     for (int i = 0; i < triangleCounts.length(); i++)
     {
-        for (int j = 0; j < 3; j++)
+        for (int j = 0; j < triangleCounts[i]; j++)
         {
-            MPoint vtx = vts[i * 3 + j];
-            MFloatVector nrml = nrmls[i * 3 + j];
-            
-            vdata *vd = (vdata *)malloc(sizeof(vdata));
-            vd->num_bindings = 0;
-            
-            vd->x = vtx.x;
-            vd->y = vtx.y;
-            vd->z = vtx.z;
-            
-            vd->nx = nrml.x;
-            vd->ny = nrml.y;
-            vd->nz = nrml.z;
-            
-            vd->u = uvs_u[i * 3 + j];
-            vd->v = uvs_v[i * 3 + j];
-            
-            util.append_vdata_struct(vd);
-            free(vd);
+            for (int k = 0; k < 3; k++)
+            {
+                MPoint vtx = vts[triangleVertices[countVert]];
+                MVector nrml;
+                
+                fn.getVertexNormal(triangleVertices[countVert], true, nrml);
+                
+                vdata *vd = (vdata *)malloc(sizeof(vdata));
+                vd->num_bindings = 0;
+                
+                vd->x = vtx.x;
+                vd->y = vtx.y;
+                vd->z = vtx.z;
+                
+                vd->nx = nrml.x;
+                vd->ny = nrml.y;
+                vd->nz = nrml.z;
+                
+                vd->u = uvs_u[triangleVertices[countVert]];
+                vd->v = uvs_v[triangleVertices[countVert]];
+                
+                util.append_vdata_struct(vd);
+                free(vd);
+                
+                countVert++;
+            }
         }
         
     }
