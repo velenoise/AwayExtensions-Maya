@@ -19,6 +19,7 @@
 #include <maya/MFnMesh.h>
 #include <maya/MItMeshPolygon.h>
 #include <maya/MPointArray.h>
+#include <maya/MMatrix.h>
 #include <string.h>
 #include <vector>
 
@@ -100,16 +101,10 @@ MStatus AWDExporter::writer ( const MFileObject& file,
                                 const MString& options,
                                 MPxFileTranslator::FileAccessMode mode)
 {
-    MGlobal::displayInfo("writer");
     MStatus status;
 	const MString fname = file.fullName();
     
-    MGlobal::displayInfo("saving file");
-
     awd = new AWD(UNCOMPRESSED, 0);
-    
-    MGlobal::displayInfo("awd instance created");
-
     
     int fd = open(fname.asChar(), O_TRUNC | O_CREAT | O_RDWR, S_IWRITE);
     
@@ -121,8 +116,15 @@ MStatus AWDExporter::writer ( const MFileObject& file,
     
     getMeshes();
     
+    AWDMetaData *meta = new AWDMetaData();
+    meta->generator_name = (char *)"Autodesk Maya";
+    meta->generator_version = (char *)MGlobal::mayaVersion().asChar();
+    awd->set_metadata(meta);
+    
     MGlobal::displayInfo("let's flush!");
     awd->flush(fd);
+    
+    close(fd);
     
     return MS::kSuccess;
 }
@@ -133,8 +135,6 @@ bool AWDExporter::getMeshes()
     
     while (!it.isDone())
     {
-        MGlobal::displayInfo("mesh found");
-        
         MObject obj = it.item();
 
         MFnMesh fn(it.item());
@@ -142,17 +142,17 @@ bool AWDExporter::getMeshes()
         MGlobal::displayInfo(fn.name());
         
         if (!fn.isIntermediateObject())
-        {
-            MGlobal::displayInfo("not intermediate");
-            
+        {            
             AWDTriGeom *mesh;
             
             mesh = exportTriGeom(&obj);
             
             if (mesh == NULL) return false;
             
-            AWDMeshInst *inst = new AWDMeshInst(fn.name().asChar(), strlen(fn.name().asChar()), mesh);
+            MMatrix id = MMatrix::identity;
             
+            AWDMeshInst *inst = new AWDMeshInst(fn.name().asChar(), strlen(fn.name().asChar()), mesh);
+            inst->set_transform();
             awd->add_scene_block(inst);
         }
         
@@ -164,8 +164,6 @@ bool AWDExporter::getMeshes()
 
 AWDTriGeom* AWDExporter::exportTriGeom(MObject *mesh)
 {
-    MGlobal::displayInfo("exportTriGeom");
-    
     AWDTriGeom *awdGeom;
     
     MFnMesh fn(*mesh);
@@ -187,6 +185,8 @@ AWDTriGeom* AWDExporter::exportTriGeom(MObject *mesh)
     
     fn.getUVs(uvs_u, uvs_v);
     
+    MMatrix  offsMtx;
+    
     AWDGeomUtil util;
     util.include_normals = true;
     util.include_uv = true;
@@ -199,17 +199,22 @@ AWDTriGeom* AWDExporter::exportTriGeom(MObject *mesh)
         {
             for (int k = 0; k < 3; k++)
             {
-                MPoint vtx = vts[triangleVertices[countVert]];
+                int vIdx = triangleVertices[countVert];
+                
+                MPoint vtx = vts[vIdx];
                 MVector nrml;
                 
-                fn.getVertexNormal(triangleVertices[countVert], true, nrml);
+                nrml *= -1;
+                
+                fn.getVertexNormal(vIdx, false, nrml);
                 
                 vdata *vd = (vdata *)malloc(sizeof(vdata));
                 vd->num_bindings = 0;
                 
+                vd->orig_idx = vIdx;
                 vd->x = vtx.x;
                 vd->y = vtx.y;
-                vd->z = vtx.z;
+                vd->z = -vtx.z;
                 
                 vd->nx = nrml.x;
                 vd->ny = nrml.y;
@@ -218,13 +223,15 @@ AWDTriGeom* AWDExporter::exportTriGeom(MObject *mesh)
                 vd->u = uvs_u[triangleVertices[countVert]];
                 vd->v = uvs_v[triangleVertices[countVert]];
                 
+                vd->force_hard = false;
+                vd->mtlid = 0;
+                
                 util.append_vdata_struct(vd);
-                free(vd);
+                //free(vd);
                 
                 countVert++;
             }
         }
-        
     }
     
     char *name = (char *)malloc(strlen(fn.name().asChar()) + 6);
